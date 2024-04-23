@@ -23,14 +23,14 @@ const TaskList = () => {
 
     return (
         <div>
-            <h1>Task List</h1>
+            <h1>All Tasks</h1>
             {tasks.map(task => <li key={task.id}>
                 <h2>{task.title}</h2>
-                <Link to={`/tasks/${task.id}`}>Task Details</Link>
+                <Link to={`/tasks/${task.id}`}>Details</Link>
                 <br/>
                 <Link to={`/tasks/${task.id}/edit`}>Edit</Link>
                 <br/>
-                <button className='delete' onClick={() => handleDelete()}>Delete Task</button>
+                <button className='delete' onClick={() => handleDelete()}>Delete</button>
             </li>)}
         </div>
     )

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import { getOneTask, destroyTask, getAllTasks } from "../api/fetch";
+import { getOneTask } from "../api/fetch";
 
 const TaskDetails = () => {
     const [task, setTask] = useState({});
@@ -8,7 +8,6 @@ const TaskDetails = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        // getAllTasks();
         getOneTask(id)
             .then(data => setTask(data));
         if (!task) {
@@ -20,9 +19,9 @@ const TaskDetails = () => {
 
     return (
     <div>
-        <h2>Task: {task.title}</h2>
-            <p>Description: {task.description}</p>
-            <p>Completed: {String(task.completed)}</p>
+        <h2>Task: {loadingError ? "" : task.title}</h2>
+            <p>Description: {loadingError ? "" : task.description}</p>
+            <p>Completed: {loadingError ? "" : (task.completed ? "Yes" : "No")}</p>
     </div>
     )
 }
