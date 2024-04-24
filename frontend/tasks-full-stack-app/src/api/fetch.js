@@ -15,7 +15,12 @@ export function createTask(task) {
 
 // Delete
 export function destroyTask(id) {
-  const options = { method: "DELETE" };
+    const options = {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json',
+        }
+    };
   return fetch(`${URL}/tasks/${id}`, options);
 }
 
