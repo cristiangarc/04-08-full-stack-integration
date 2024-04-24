@@ -5,7 +5,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const tasks = [ {id: 1, title: 'Laundry', description: 'wash, dry and fold laundry', completed: false } ];
+let tasks = [ {id: 1, title: 'Laundry', description: 'wash, dry and fold laundry', status: "no" } ];
+// let tasks = [];
 
 app.get('/tasks', (req, res) => {
     res.status(200).json(tasks);
@@ -26,6 +27,7 @@ app.get('/tasks/:id', (req, res) => {
     const numId = Number(id);
     const index = tasks.findIndex(task => task.id = numId);
     if (index !== -1) {
+        console.log("got task");
         res.status(200).json(tasks[index]);
     } else {
         res.status(404).send('Task not found');
@@ -48,8 +50,8 @@ app.delete('/tasks/:id', (req, res) => {
     const numId = Number(id);
     const index = tasks.findIndex(task => task.id = numId);
     if (index !== -1) {
-        // const deletedTask = tasks[index];
-        tasks.slice(index, 1);
+        tasks.splice(index, 1);
+        console.log("task deleted");
         res.status(200).json('Task successfully deleted');
     } else {
         res.status(404).send('Task not found');
