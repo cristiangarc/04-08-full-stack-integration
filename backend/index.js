@@ -5,7 +5,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-let tasks = [ {id: 1, title: 'Laundry', description: 'wash, dry and fold laundry', completed: false } ];
+let tasks = [ {id: 1, title: 'Laundry', description: 'wash, dry and fold laundry', status: "no" } ];
 // let tasks = [];
 
 app.get('/tasks', (req, res) => {

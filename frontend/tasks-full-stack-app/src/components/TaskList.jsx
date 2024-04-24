@@ -23,9 +23,14 @@ const TaskList = () => {
             });
     }
 
+    const handleNewTask = () => {
+        navigate('/tasks/-1/edit')
+    }
+
     return (
         <div>
             <h1>{tasks ? "All Tasks" : "No Tasks"}</h1>
+            <button onClick={handleNewTask}>New Task</button>
             {tasks.map(task => <li key={task.id}>
                 <h2>{task.title}</h2>
                 <Link to={`/tasks/${task.id}`}>Details</Link>

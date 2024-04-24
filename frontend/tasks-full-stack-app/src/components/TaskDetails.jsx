@@ -21,7 +21,7 @@ const TaskDetails = () => {
     <div>
         <h2>Task: {loadingError ? "" : task.title}</h2>
             <p>Description: {loadingError ? "" : task.description}</p>
-            <p>Completed: {loadingError ? "" : (task.completed ? "Yes" : "No")}</p>
+            <p>Completed: {loadingError ? "" : (task.status)}</p>
     </div>
     )
 }

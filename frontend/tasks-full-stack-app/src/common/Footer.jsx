@@ -1,8 +1,10 @@
+import "./Footer.css"
+
 const Footer = () => {
   return (
-    <div>
+    <section className="footer">
       <p>App created by Cristian Garcia Calleja</p>
-    </div>
+    </section>
   )
 }
 
