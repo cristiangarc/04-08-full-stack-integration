@@ -24,7 +24,7 @@ const TaskList = () => {
     }
 
     const handleNewTask = () => {
-        navigate('/tasks/-2/edit')
+        navigate('/tasks/new')
     }
 
     return (
@@ -33,6 +33,7 @@ const TaskList = () => {
             <button onClick={handleNewTask}>New Task</button>
             {tasks.map(task => <li key={task.id}>
                 <h2>{task.title}</h2>
+                <p>ID: {task.id}</p>
                 <Link to={`/tasks/${task.id}`}>Details</Link>
                 <br/>
                 <Link to={`/tasks/${task.id}/edit`}>Edit</Link>

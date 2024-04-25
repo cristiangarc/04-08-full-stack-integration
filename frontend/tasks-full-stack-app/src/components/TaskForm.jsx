@@ -3,27 +3,23 @@ import { useParams, useNavigate } from "react-router-dom"
 import { getOneTask, updateTask, createTask, getAllTasks } from "../api/fetch";
 
 const TaskForm = () => {
-    const [tasks, setTasks] = useState([]);
     const [task, setTask] = useState({});
     const [editMode, setEditMode] = useState(false);
     const { id } = useParams();
 
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     getAllTasks()
-    //         .then(data => setTasks(data));
-    // }, []);
-
-    // console.log(tasks);
-
     useEffect(() => {
-        if (Number(id) >= 0) {
+        if (id) {
             getOneTask(id)
                 .then(data => setTask(data))
-            console.log(task);
             setEditMode(true);
         } else {
+            setTask({
+                title: "",
+                description: "",
+                status: ""
+            })
             setEditMode(false);
         }
     }, [id]);
@@ -35,31 +31,37 @@ const TaskForm = () => {
         })
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
         if (editMode) {
-            updateTask(id, task);
+            updateTask(id, task)
+                .then(() => navigate('/'))
+                .catch((error) => console.error(error));
         } else {
             createTask(task)
+                .then(() => navigate('/'))
+                .catch((error) => console.error(error));
         }
-        navigate('/')
     }
 
-    // const getAllTaskIds = (tasks) => {
-    //     return tasks.map(task => task.id);
-    // }
-
-    // const checkIfIdExists = (id) => {
-    //     const allIds = getAllTaskIds(tasks);
-    //     return allIds.includes(id);
-    // }
-
-    // console.log(tasks);
     console.log(id);
 
     return (
         <div>
             <h2>{editMode ? 'Edit Form' : 'New Form'}</h2>
             <form onSubmit={handleSubmit}>
+                
+                {id ? <label htmlFor="id">
+                    ID:
+                    <input
+                    type="number"
+                    id="id"
+                    value={task.id}
+                    onChange={handleTextChange}
+                />
+                </label> : ""}
+                <br />
                 <label htmlFor="title">Title:</label>
                 <input
                     type="text"

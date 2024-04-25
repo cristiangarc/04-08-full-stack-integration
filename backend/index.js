@@ -25,9 +25,8 @@ app.post('/tasks', (req, res) => {
 app.get('/tasks/:id', (req, res) => {
     const { id } = req.params;
     const numId = Number(id);
-    const index = tasks.findIndex(task => task.id = numId);
+    const index = tasks.findIndex(task => task.id === numId);
     if (index !== -1) {
-        console.log("got task");
         res.status(200).json(tasks[index]);
     } else {
         res.status(404).send('Task not found');
@@ -37,7 +36,7 @@ app.put('/tasks/:id', (req, res) => {
     // can update title, description or status
     const { id } = req.params;
     const numId = Number(id);
-    const index = tasks.findIndex(task => task.id = numId);
+    const index = tasks.findIndex(task => task.id === numId);
     if (index !== -1) {
         tasks[index] = { ...tasks[index], ...req.body };
         res.status(200).json(tasks[index]);
@@ -48,7 +47,7 @@ app.put('/tasks/:id', (req, res) => {
 app.delete('/tasks/:id', (req, res) => {
     const { id } = req.params;
     const numId = Number(id);
-    const index = tasks.findIndex(task => task.id = numId);
+    const index = tasks.findIndex(task => task.id === numId);
     if (index !== -1) {
         tasks.splice(index, 1);
         console.log("task deleted");
