@@ -5,21 +5,28 @@ import { getOneTask, updateTask, createTask, getAllTasks } from "../api/fetch";
 const TaskForm = () => {
     const [tasks, setTasks] = useState([]);
     const [task, setTask] = useState({});
+    const [editMode, setEditMode] = useState(false);
     const { id } = useParams();
 
     const navigate = useNavigate();
 
+    // useEffect(() => {
+    //     getAllTasks()
+    //         .then(data => setTasks(data));
+    // }, []);
+
+    // console.log(tasks);
+
     useEffect(() => {
-        if (id) {
+        if (Number(id) >= 0) {
             getOneTask(id)
                 .then(data => setTask(data))
+            console.log(task);
+            setEditMode(true);
+        } else {
+            setEditMode(false);
         }
     }, [id]);
-    
-    useEffect(() => {
-        getAllTasks()
-            .then(data => setTasks(data));
-    }, []);
 
     const handleTextChange = (event) => {
         setTask({
@@ -28,29 +35,30 @@ const TaskForm = () => {
         })
     }
 
-
     const handleSubmit = () => {
-        if (id) {
+        if (editMode) {
             updateTask(id, task);
         } else {
             createTask(task)
         }
-        navigate('/tasks')
+        navigate('/')
     }
 
-    const getAllTaskIds = (tasks) => {
-        return tasks.map(task => task.id);
-    }
+    // const getAllTaskIds = (tasks) => {
+    //     return tasks.map(task => task.id);
+    // }
 
+    // const checkIfIdExists = (id) => {
+    //     const allIds = getAllTaskIds(tasks);
+    //     return allIds.includes(id);
+    // }
 
-    const checkIfIdExists = (id) => {
-        const allIds = getAllTaskIds(tasks);
-        return allIds.includes(id);
-    }
+    // console.log(tasks);
+    console.log(id);
 
     return (
         <div>
-            <h2>{checkIfIdExists(Number(id)) ? 'Edit Form' : 'New Form'}</h2>
+            <h2>{editMode ? 'Edit Form' : 'New Form'}</h2>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="title">Title:</label>
                 <input

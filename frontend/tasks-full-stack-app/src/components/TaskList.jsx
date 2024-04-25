@@ -24,7 +24,7 @@ const TaskList = () => {
     }
 
     const handleNewTask = () => {
-        navigate('/tasks/-1/edit')
+        navigate('/tasks/-2/edit')
     }
 
     return (
