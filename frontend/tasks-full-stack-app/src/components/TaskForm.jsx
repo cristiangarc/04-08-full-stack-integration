@@ -3,7 +3,12 @@ import { useParams, useNavigate } from "react-router-dom"
 import { getOneTask, updateTask, createTask, getAllTasks } from "../api/fetch";
 
 const TaskForm = () => {
-    const [task, setTask] = useState({});
+    const [task, setTask] = useState({
+        id: "",
+        title: "",
+        description: "",
+        status: ""
+    });
     const [editMode, setEditMode] = useState(false);
     const { id } = useParams();
 
